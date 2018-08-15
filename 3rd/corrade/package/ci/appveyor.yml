@@ -1,0 +1,48 @@
+# kate: indent-width 2;
+
+clone_depth: 1
+
+environment:
+  matrix:
+  - TARGET: desktop
+    COMPILER: msvc
+    ANSI_COLORS: ON
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    APPVEYOR_JOB_NAME: windows-msvc2015
+  - TARGET: desktop
+    COMPILER: msvc
+    ANSI_COLORS: ON
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    APPVEYOR_JOB_NAME: windows-msvc2017
+  - TARGET: desktop
+    COMPILER: msvc
+    ANSI_COLORS: OFF
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    APPVEYOR_JOB_NAME: windows-noansi-msvc2015
+  - TARGET: desktop
+    COMPILER: mingw
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    APPVEYOR_JOB_NAME: windows-mingw
+  - TARGET: rt
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    APPVEYOR_JOB_NAME: windows-rt-msvc2015
+  - TARGET: rt
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    APPVEYOR_JOB_NAME: windows-rt-msvc2017
+
+notifications:
+- provider: Webhook
+  url: https://webhooks.gitter.im/e/415ae90928ba0dbd3df4
+  on_build_success: false
+  on_build_failure: true
+  on_build_status_changed: true
+
+install:
+- cinst ninja
+- set PATH=C:/tools/ninja;%PATH%
+- IF "%TARGET%" == "desktop" IF "%COMPILER%" == "mingw" pip install codecov
+
+build_script:
+- IF "%TARGET%" == "desktop" IF "%COMPILER%" == "msvc" call package\ci\appveyor-desktop.bat
+- IF "%TARGET%" == "desktop" IF "%COMPILER%" == "mingw" call package\ci\appveyor-desktop-mingw.bat
+- IF "%TARGET%" == "rt" call package\ci\appveyor-rt.bat
