@@ -1,5 +1,7 @@
 #include <Magnum/GL/DefaultFramebuffer.h>
 #include <Magnum/Platform/GlfwApplication.h>
+#include <Magnum/GL/Renderer.h>
+#include <Magnum/Math/Color.h>
 
 using namespace Magnum;
 
@@ -12,7 +14,9 @@ class MyApplication: public Platform::Application {
 };
 
 MyApplication::MyApplication(const Arguments& arguments): Platform::Application{arguments} {
-    /* TODO: Add your initialization code here */
+    using namespace Magnum::Math::Literals;
+
+    GL::Renderer::setClearColor(0xa5c9ea_rgbf);
 }
 
 void MyApplication::drawEvent() {
