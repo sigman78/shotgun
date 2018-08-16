@@ -5,9 +5,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/modules/")
 
 set(SDL_SHARED OFF CACHE BOOL "SDL2 Static only")
 
-set(GLFW_BUILD_EXAMPLES CACHE OFF BOOL "Build the GLFW example programs")
-set(GLFW_BUILD_TESTS  CACHE OFF BOOL "Build the GLFW test programs")
-set(GLFW_BUILD_DOCS  CACHE OFF BOOL "Build the GLFW documentation")
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build the GLFW example programs")
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build the GLFW test programs")
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "Build the GLFW documentation")
 
 set(TARGET_GLES2 ON CACHE BOOL "GLES2 target")
 set(BUILD_STATIC ON CACHE BOOL "Static only")
